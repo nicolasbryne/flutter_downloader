@@ -622,7 +622,7 @@ class DownloadWorker(context: Context, params: WorkerParameters) :
         context: Context,
         title: String?,
         status: DownloadStatus,
-        progress: Int,
+        progress: Long,
         intent: PendingIntent?,
         finalize: Boolean
     ) {
@@ -711,7 +711,7 @@ class DownloadWorker(context: Context, params: WorkerParameters) :
         }
     }
 
-    private fun sendUpdateProcessEvent(status: DownloadStatus, progress: Int) {
+    private fun sendUpdateProcessEvent(status: DownloadStatus, progress: Long) {
         val args: MutableList<Any> = ArrayList()
         val callbackHandle: Long = inputData.getLong(ARG_CALLBACK_HANDLE, 0)
         args.add(callbackHandle)
