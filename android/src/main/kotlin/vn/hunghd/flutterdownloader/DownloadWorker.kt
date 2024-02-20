@@ -400,7 +400,7 @@ class DownloadWorker(context: Context, params: WorkerParameters) :
                 // using isStopped to monitor canceling task
                 while (inputStream.read(buffer).also { bytesRead = it } != -1 && !isStopped) {
                     count += bytesRead.toLong()
-                    val progress = (count * 100 / (contentLength + downloadedBytes)).toDouble()
+                    val progress = (count * 100 / (contentLength + downloadedBytes))
                     outputStream?.write(buffer, 0, bytesRead)
                     if ((lastProgress == 0 || progress > lastProgress + step || progress == 100) &&
                         progress != lastProgress
