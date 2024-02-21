@@ -264,7 +264,7 @@ class TaskDao(private val dbHelper: TaskDbHelper) {
             clickToOpenDownloadedFile == 1,
             timeCreated,
             saveInPublicStorage == 1,
-            allowCellular = allowCelluar == 1
+            allowCellular = allowCelluar == 1,
             contentLength
         )
     }
