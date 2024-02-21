@@ -195,11 +195,12 @@ class TaskDao(private val dbHelper: TaskDbHelper) {
         }
     }
 
-    fun updateTask(taskId: String, filename: String?, mimeType: String?) {
+    fun updateTask(taskId: String, filename: String?, mimeType: String?, contentLength: Long?) {
         val db = dbHelper.writableDatabase
         val values = ContentValues()
         values.put(TaskEntry.COLUMN_NAME_FILE_NAME, filename)
         values.put(TaskEntry.COLUMN_NAME_MIME_TYPE, mimeType)
+        values.put(TaskEntry.COLUMN_CONTENT_LENGTH, contentLength)
         db.beginTransaction()
         try {
             db.update(
@@ -247,6 +248,7 @@ class TaskDao(private val dbHelper: TaskDbHelper) {
         val timeCreated = cursor.getLong(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_NAME_TIME_CREATED))
         val saveInPublicStorage = cursor.getShort(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_SAVE_IN_PUBLIC_STORAGE)).toInt()
         val allowCelluar = cursor.getShort(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_ALLOW_CELLULAR)).toInt()
+        val contentLength = cursor.getLong(cursor.getColumnIndexOrThrow(TaskEntry.COLUMN_CONTENT_LENGTH)).toLong()
         return DownloadTask(
             primaryId,
             taskId,
@@ -263,6 +265,7 @@ class TaskDao(private val dbHelper: TaskDbHelper) {
             timeCreated,
             saveInPublicStorage == 1,
             allowCellular = allowCelluar == 1
+            contentLength
         )
     }
 }

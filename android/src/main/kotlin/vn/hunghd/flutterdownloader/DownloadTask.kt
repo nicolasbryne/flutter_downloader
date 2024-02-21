@@ -16,4 +16,5 @@ data class DownloadTask(
     var timeCreated: Long,
     var saveInPublicStorage: Boolean,
     var allowCellular: Boolean
+    var contentLength: Long
 )

@@ -152,17 +152,17 @@ class FlutterDownloader {
       return result.map(
         (dynamic item) {
           return DownloadTask(
-            taskId: item['task_id'] as String,
-            status: DownloadTaskStatus.fromInt(item['status'] as int),
-            progress: item['progress'] as int,
-            url: item['url'] as String,
-            filename: item['file_name'] as String?,
-            savedDir: item['saved_dir'] as String,
-            timeCreated: item['time_created'] as int,
+              taskId: item['task_id'] as String,
+              status: DownloadTaskStatus.fromInt(item['status'] as int),
+              progress: item['progress'] as int,
+              url: item['url'] as String,
+              filename: item['file_name'] as String?,
+              savedDir: item['saved_dir'] as String,
+              timeCreated: item['time_created'] as int,
 
-            // allowCellular field is true by default (similar to enqueue())
-            allowCellular: (item['allow_cellular'] as bool?) ?? true,
-          );
+              // allowCellular field is true by default (similar to enqueue())
+              allowCellular: (item['allow_cellular'] as bool?) ?? true,
+              contentLength: item['content_length'] as int);
         },
       ).toList();
     } on FlutterDownloaderException catch (err) {
@@ -210,17 +210,17 @@ class FlutterDownloader {
       return result.map(
         (dynamic item) {
           return DownloadTask(
-            taskId: item['task_id'] as String,
-            status: DownloadTaskStatus.fromInt(item['status'] as int),
-            progress: item['progress'] as int,
-            url: item['url'] as String,
-            filename: item['file_name'] as String?,
-            savedDir: item['saved_dir'] as String,
-            timeCreated: item['time_created'] as int,
+              taskId: item['task_id'] as String,
+              status: DownloadTaskStatus.fromInt(item['status'] as int),
+              progress: item['progress'] as int,
+              url: item['url'] as String,
+              filename: item['file_name'] as String?,
+              savedDir: item['saved_dir'] as String,
+              timeCreated: item['time_created'] as int,
 
-            // allowCellular field is true by default (similar to enqueue())
-            allowCellular: (item['allow_cellular'] as bool?) ?? true,
-          );
+              // allowCellular field is true by default (similar to enqueue())
+              allowCellular: (item['allow_cellular'] as bool?) ?? true,
+              contentLength: item['content_length'] as int);
         },
       ).toList();
     } on PlatformException catch (err) {

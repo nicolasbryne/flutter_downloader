@@ -18,4 +18,5 @@ object TaskEntry : BaseColumns {
     const val COLUMN_NAME_TIME_CREATED = "time_created"
     const val COLUMN_SAVE_IN_PUBLIC_STORAGE = "save_in_public_storage"
     const val COLUMN_ALLOW_CELLULAR = "allow_cellular"
+    const val COLUMN_CONTENT_LENGTH = "content_length"
 }

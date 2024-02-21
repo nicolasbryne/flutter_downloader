@@ -50,16 +50,16 @@ enum DownloadTaskStatus {
 /// This is also the structure of the record saved in the SQLite database.
 class DownloadTask {
   /// Creates a new [DownloadTask].
-  DownloadTask({
-    required this.taskId,
-    required this.status,
-    required this.progress,
-    required this.url,
-    required this.filename,
-    required this.savedDir,
-    required this.timeCreated,
-    required this.allowCellular,
-  });
+  DownloadTask(
+      {required this.taskId,
+      required this.status,
+      required this.progress,
+      required this.url,
+      required this.filename,
+      required this.savedDir,
+      required this.timeCreated,
+      required this.allowCellular,
+      required this.contentLength});
 
   /// Unique identifier of this task.
   final String taskId;
@@ -85,9 +85,12 @@ class DownloadTask {
   /// Whether downloads can use cellular data
   final bool allowCellular;
 
+  /// File Size
+  final int contentLength;
+
   @override
   String toString() =>
-      'DownloadTask(taskId: $taskId, status: $status, progress: $progress, url: $url, filename: $filename, savedDir: $savedDir, timeCreated: $timeCreated, allowCellular: $allowCellular)';
+      'DownloadTask(taskId: $taskId, status: $status, progress: $progress, url: $url, filename: $filename, savedDir: $savedDir, timeCreated: $timeCreated, allowCellular: $allowCellular, contentLength: $contentLength)';
 
   @override
   bool operator ==(Object other) {
@@ -103,20 +106,13 @@ class DownloadTask {
         other.filename == filename &&
         other.savedDir == savedDir &&
         other.timeCreated == timeCreated &&
-        other.allowCellular == allowCellular;
+        other.allowCellular == allowCellular &&
+        other.contentLength == contentLength;
   }
 
   @override
   int get hashCode {
-    return Object.hash(
-      taskId,
-      status,
-      progress,
-      url,
-      filename,
-      savedDir,
-      timeCreated,
-      allowCellular,
-    );
+    return Object.hash(taskId, status, progress, url, filename, savedDir,
+        timeCreated, allowCellular, contentLength);
   }
 }
