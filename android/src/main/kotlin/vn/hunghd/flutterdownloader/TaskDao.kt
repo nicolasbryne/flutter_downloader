@@ -21,7 +21,8 @@ class TaskDao(private val dbHelper: TaskDbHelper) {
         TaskEntry.COLUMN_NAME_SHOW_NOTIFICATION,
         TaskEntry.COLUMN_NAME_TIME_CREATED,
         TaskEntry.COLUMN_SAVE_IN_PUBLIC_STORAGE,
-        TaskEntry.COLUMN_ALLOW_CELLULAR
+        TaskEntry.COLUMN_ALLOW_CELLULAR,
+        TaskEntry.COLUMN_CONTENT_LENGTH
     )
 
     fun insertOrUpdateNewTask(
@@ -124,11 +125,11 @@ class TaskDao(private val dbHelper: TaskDbHelper) {
         return result
     }
 
-    fun updateTask(taskId: String, status: DownloadStatus, progress: Int) {
+    fun updateTask(taskId: String, status: DownloadStatus, progress: Int?) {
         val db = dbHelper.writableDatabase
         val values = ContentValues()
         values.put(TaskEntry.COLUMN_NAME_STATUS, status.ordinal)
-        values.put(TaskEntry.COLUMN_NAME_PROGRESS, progress)
+        if(progress != null) values.put(TaskEntry.COLUMN_NAME_PROGRESS, progress)
         db.beginTransaction()
         try {
             db.update(

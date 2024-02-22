@@ -12,7 +12,10 @@ class TaskDbHelper private constructor(context: Context) :
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        if (newVersion == 4) {
+        if (newVersion < 5) {
+            db.execSQL("ALTER TABLE ${TaskEntry.TABLE_NAME} ADD COLUMN ${TaskEntry.COLUMN_CONTENT_LENGTH} INTEGER DEFAULT 0")
+        }
+        else if (newVersion == 4) {
             db.execSQL("ALTER TABLE ${TaskEntry.TABLE_NAME} ADD COLUMN ${TaskEntry.COLUMN_ALLOW_CELLULAR} TINYINT DEFAULT 1")
         } else if (oldVersion == 2 && newVersion == 3) {
             db.execSQL("ALTER TABLE " + TaskEntry.TABLE_NAME + " ADD COLUMN " + TaskEntry.COLUMN_SAVE_IN_PUBLIC_STORAGE + " TINYINT DEFAULT 0")
@@ -27,7 +30,7 @@ class TaskDbHelper private constructor(context: Context) :
     }
 
     companion object {
-        const val DATABASE_VERSION = 4
+        const val DATABASE_VERSION = 5
         const val DATABASE_NAME = "download_tasks.db"
         private var instance: TaskDbHelper? = null
         private const val SQL_CREATE_ENTRIES = (
@@ -47,6 +50,7 @@ class TaskDbHelper private constructor(context: Context) :
                 TaskEntry.COLUMN_NAME_TIME_CREATED + " INTEGER DEFAULT 0, " +
                 TaskEntry.COLUMN_SAVE_IN_PUBLIC_STORAGE + " TINYINT DEFAULT 0, " +
                 TaskEntry.COLUMN_ALLOW_CELLULAR + " TINYINT DEFAULT 1" +
+                TaskEntry.COLUMN_CONTENT_LENGTH + " INTEGER DEFAULT 0"
                 ")"
             )
         private const val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS ${TaskEntry.TABLE_NAME}"

@@ -256,9 +256,11 @@ class FlutterDownloaderPlugin : MethodChannel.MethodCallHandler, FlutterPlugin {
         val taskId: String = call.requireArgument("task_id")
         // mark the current task is cancelled to process pause request
         // the worker will depends on this flag to prepare data for resume request
-        taskDao!!.updateTask(taskId, true)
+        //taskDao!!.updateTask(taskId, true)
         // cancel running task, this method causes WorkManager.isStopped() turning true and the download loop will be stopped
         WorkManager.getInstance(requireContext()).cancelWorkById(UUID.fromString(taskId))
+        taskDao!!.updateTask(taskId, DownloadStatus.PAUSED, null);
+        taskDao!!.updateTask(taskId, true)
         result.success(null)
     }
 
